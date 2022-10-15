@@ -28,6 +28,7 @@ requirements:
     - cmake
     - make  # [unix]
     - libgomp  # [linux]
+    - ninja  # [win]
     - llvm-openmp  # [osx or win]
     - m2-sed  # [win]
   host:

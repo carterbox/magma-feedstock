@@ -34,6 +34,7 @@ cd build
 if errorlevel 1 exit /b 1
 
 cmake %CMAKE_ARGS% .. ^
+  -G "Ninja" ^
   -DUSE_FORTRAN=OFF ^
   -DGPU_TARGET="All" ^
   -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
