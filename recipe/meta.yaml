@@ -49,3 +49,4 @@ about:
 extra:
   recipe-maintainers:
     - carterbox
+    - conda-forge/pytorch-cpu
