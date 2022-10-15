@@ -13,14 +13,7 @@ Current build status
 ====================
 
 
-<table><tr>
-    <td>Travis</td>
-    <td>
-      <a href="https://app.travis-ci.com/conda-forge/magma-feedstock">
-        <img alt="linux" src="https://img.shields.io/travis/com/conda-forge/magma-feedstock/main.svg?label=Linux">
-      </a>
-    </td>
-  </tr>
+<table>
     
   <tr>
     <td>Azure</td>
@@ -232,5 +225,5 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
-* [@isuruf](https://github.com/isuruf/)
+* [@carterbox](https://github.com/carterbox/)
 
