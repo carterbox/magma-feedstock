@@ -34,7 +34,6 @@ cd build
 if errorlevel 1 exit /b 1
 
 cmake %CMAKE_ARGS% .. ^
-  -G "Visual Studio 16 2019" ^
   -DUSE_FORTRAN=OFF ^
   -DGPU_TARGET="All" ^
   -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
