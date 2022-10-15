@@ -45,7 +45,7 @@ cmake %CMAKE_ARGS% .. ^
   -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS:BOOL=ON
 if errorlevel 1 exit /b 1
 
-cmake --build .
+cmake --build . --config Release
 if errorlevel 1 exit /b 1
 
 cmake --install .
