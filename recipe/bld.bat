@@ -1,5 +1,11 @@
 @echo on
 
+:: Set CUDACXX with call to 'where nvcc'
+for /f "tokens=* usebackq" %%f in (`where nvcc`) do (set "dummy=%%f" && call set "CUDACXX=%%dummy:\=\\%%")
+
+set "CXX=C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl.exe"
+set "CUDAHOSTCXX=C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl.exe"
+
 set "CUDA_ARCH_LIST=-gencode arch=compute_37,code=sm_37 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_60,code=sm_60 -gencode arch=compute_70,code=sm_70"
 
 if %cuda_compiler_version% == "11.2" (
@@ -18,6 +24,9 @@ if %cuda_compiler_version% ==  "11.0" (
 set CFLAGS=
 set CXXFLAGS=
 set CPPFLAGS=
+
+echo nvcc is %CUDACXX%
+echo cxx is %CXX%
 
 md build
 cd build
