@@ -4,6 +4,7 @@
 for /f "tokens=* usebackq" %%f in (`where nvcc`) do (set "dummy=%%f" && call set "CUDACXX=%%dummy:\=\\%%")
 
 set "CXX=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.29.30133\bin\Hostx64\x64\cl.exe"
+set "CC=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.29.30133\bin\Hostx64\x64\cl.exe"
 set "CUDAHOSTCXX=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.29.30133\bin\Hostx64\x64\cl.exe"
 set "CUDACXX=%CUDA_HOME%\bin\nvcc.exe"
 
@@ -34,7 +35,7 @@ cd build
 if errorlevel 1 exit /b 1
 
 cmake %CMAKE_ARGS% .. ^
-  -G "Ninja" ^
+  -G "NMake Makefiles JOM" ^
   -DUSE_FORTRAN=OFF ^
   -DGPU_TARGET="All" ^
   -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
