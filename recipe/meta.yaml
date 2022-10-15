@@ -27,7 +27,6 @@ requirements:
     - {{ compiler('cuda') }}
     - cmake
     - make  # [unix]
-    - ninja  # [win]
     - libgomp  # [linux]
     - llvm-openmp  # [osx or win]
     - m2-sed  # [win]
