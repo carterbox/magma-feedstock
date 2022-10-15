@@ -38,8 +38,8 @@ cmake.exe %CMAKE_ARGS% .. ^
   -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON
 if errorlevel 1 exit 1
 
-conda --build . -j%CPU_COUNT% --verbose --config Release
+cmake --build . -j%CPU_COUNT% --verbose --config Release
 if errorlevel 1 exit 1
 
-conda --install .
+cmake --install .
 if errorlevel 1 exit 1
