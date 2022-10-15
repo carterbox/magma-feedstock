@@ -1,6 +1,7 @@
 @echo on
 
-set "CMAKE_PREFIX_PATH=%LIBRARY_PREFIX%"
+:: Set CUDACXX with call to 'where nvcc'
+for /f "tokens=* usebackq" %%f in (`where nvcc`) do (set "dummy=%%f" && call set "CUDACXX=%%dummy:\=\\%%")
 
 set "CUDA_ARCH_LIST=-gencode arch=compute_37,code=sm_37 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_60,code=sm_60 -gencode arch=compute_70,code=sm_70"
 
@@ -23,10 +24,10 @@ set CPPFLAGS=
 
 md build
 cd build
-if errorlevel 1 exit 1
+if errorlevel 1 exit /b 1
 
-cmake.exe %CMAKE_ARGS% .. ^
-  -G "NMake Makefiles JOM" ^
+cmake %CMAKE_ARGS% .. ^
+  -GNinja ^
   -DUSE_FORTRAN=OFF ^
   -DGPU_TARGET="All" ^
   -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
@@ -35,11 +36,11 @@ cmake.exe %CMAKE_ARGS% .. ^
   -DLAPACK_LIBRARIES="%LIBRARY_PREFIX%\lib\lapack.lib;%LIBRARY_PREFIX%\lib\blas.lib" ^
   -DCMAKE_BUILD_TYPE=Release ^
   -DBUILD_SPARSE=OFF ^
-  -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON
-if errorlevel 1 exit 1
+  -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS:BOOL=ON
+if errorlevel 1 exit /b 1
 
-cmake --build . -j%CPU_COUNT% --verbose --config Release
-if errorlevel 1 exit 1
+cmake --build .
+if errorlevel 1 exit /b 1
 
 cmake --install .
-if errorlevel 1 exit 1
+if errorlevel 1 exit /b 1
