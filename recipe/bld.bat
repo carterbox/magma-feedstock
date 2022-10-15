@@ -23,6 +23,8 @@ set CPPFLAGS=
 
 md build
 cd build
+if errorlevel 1 exit 1
+
 cmake.exe %CMAKE_ARGS% .. ^
   -G "NMake Makefiles JOM" ^
   -DUSE_FORTRAN=OFF ^
@@ -30,15 +32,14 @@ cmake.exe %CMAKE_ARGS% .. ^
   -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
   -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
   -DCUDA_ARCH_LIST="%CUDA_ARCH_LIST%" ^
-  -DCUDA_TOOLKIT_INCLUDE="%CUDA_HOME%\include" ^
   -DLAPACK_LIBRARIES="%LIBRARY_PREFIX%\lib\lapack.lib;%LIBRARY_PREFIX%\lib\blas.lib" ^
   -DCMAKE_BUILD_TYPE=Release ^
   -DBUILD_SPARSE=OFF ^
   -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON
 if errorlevel 1 exit 1
 
-jom -j%CPU_COUNT% VERBOSE=1
+conda --build . -j%CPU_COUNT% --verbose --config Release
 if errorlevel 1 exit 1
 
-jom install
+conda --install .
 if errorlevel 1 exit 1
