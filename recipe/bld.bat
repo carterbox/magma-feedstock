@@ -26,6 +26,7 @@ if %cuda_compiler_version% ==  "11.0" (
 set CFLAGS=
 set CXXFLAGS=
 set CPPFLAGS=
+set CUDAFLAGS="--use-local-env"
 
 echo nvcc is %CUDACXX%
 echo cxx is %CXX%
