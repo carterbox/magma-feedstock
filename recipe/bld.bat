@@ -26,7 +26,6 @@ if %cuda_compiler_version% ==  "11.0" (
 set CFLAGS=
 set CXXFLAGS=
 set CPPFLAGS=
-set CUDAFLAGS="--use-local-env"
 
 echo nvcc is %CUDACXX%
 echo cxx is %CXX%
@@ -36,7 +35,7 @@ cd build
 if errorlevel 1 exit /b 1
 
 cmake %CMAKE_ARGS% .. ^
-  -G "NMake Makefiles JOM" ^
+  -G "Ninja" ^
   -DUSE_FORTRAN=OFF ^
   -DGPU_TARGET="All" ^
   -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
@@ -45,10 +44,11 @@ cmake %CMAKE_ARGS% .. ^
   -DLAPACK_LIBRARIES="%LIBRARY_PREFIX%\lib\lapack.lib;%LIBRARY_PREFIX%\lib\blas.lib" ^
   -DCMAKE_BUILD_TYPE=Release ^
   -DBUILD_SPARSE=OFF ^
-  -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS:BOOL=ON
+  -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS:BOOL=ON ^
+  -DCUDA_NVCC_FLAGS="--use-local-env"
 if errorlevel 1 exit /b 1
 
-cmake --build . --config Release -j%CPU_COUNT%
+cmake --build . --config Release -j%CPU_COUNT% --verbose
 if errorlevel 1 exit /b 1
 
 cmake --install .
