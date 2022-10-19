@@ -8,4 +8,4 @@ provider:
 # Builds can take 3 hours Travis was timing-out
 idle_timeout_minutes: 240
 azure:
-  store_build_artifacts: False
+  store_build_artifacts: True
