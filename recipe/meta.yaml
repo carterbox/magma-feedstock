@@ -39,6 +39,7 @@ test:
   commands:
     - test -f $PREFIX/include/magma.h  # [unix]
     - test -f $PREFIX/lib/libmagma${SHLIB_EXT}   # [unix]
+    - test -f $PREFIX/lib/libmagma_sparse${SHLIB_EXT}   # [unix]
     - if not exist %LIBRARY_PREFIX%\include\magma.h exit 1  # [win]
     - if not exist %LIBRARY_PREFIX%\lib\magma.lib exit 1  # [win]
     - if not exist %LIBRARY_PREFIX%\bin\magma.dll exit 1  # [win]
