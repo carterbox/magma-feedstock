@@ -1,13 +1,5 @@
 @echo on
 
-:: Set CUDACXX with call to 'where nvcc'
-for /f "tokens=* usebackq" %%f in (`where nvcc`) do (set "dummy=%%f" && call set "CUDACXX=%%dummy:\=\\%%")
-
-set "CXX=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.29.30133\bin\Hostx64\x64\cl.exe"
-set "CC=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.29.30133\bin\Hostx64\x64\cl.exe"
-set "CUDAHOSTCXX=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.29.30133\bin\Hostx64\x64\cl.exe"
-set "CUDACXX=%CUDA_HOME%\bin\nvcc.exe"
-
 set "CUDA_ARCH_LIST=-gencode arch=compute_37,code=sm_37 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_60,code=sm_60 -gencode arch=compute_70,code=sm_70"
 
 if %cuda_compiler_version% == "11.2" (
@@ -27,15 +19,14 @@ set CFLAGS=
 set CXXFLAGS=
 set CPPFLAGS=
 
-echo nvcc is %CUDACXX%
-echo cxx is %CXX%
-
 md build
 cd build
 if errorlevel 1 exit /b 1
 
+:: Must add --use-local-env to NVCC_FLAGS otherwise NVCC autoconfigs the host
+:: compiler to cl.exe instead of the full path
 cmake %CMAKE_ARGS% .. ^
-  -G "Ninja" ^
+  -G "NMake Makefiles JOM" ^
   -DUSE_FORTRAN=OFF ^
   -DGPU_TARGET="All" ^
   -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
