@@ -3,9 +3,7 @@ github:
   branch_name: main
   tooling_branch_name: main
 provider:
-  linux_ppc64le: default
-  linux_aarch64: default
+  linux_ppc64le: circle
+  linux_aarch64: circle
 # Builds can take 3 hours Travis was timing-out
 idle_timeout_minutes: 240
-azure:
-  store_build_artifacts: True
