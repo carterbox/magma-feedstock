@@ -26,7 +26,7 @@ if errorlevel 1 exit /b 1
 :: Must add --use-local-env to NVCC_FLAGS otherwise NVCC autoconfigs the host
 :: compiler to cl.exe instead of the full path
 cmake %CMAKE_ARGS% .. ^
-  -G "NMake Makefiles JOM" ^
+  -G "Ninja" ^
   -DUSE_FORTRAN=OFF ^
   -DGPU_TARGET="All" ^
   -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
